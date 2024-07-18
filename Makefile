@@ -1,6 +1,6 @@
 APP = restapi
 
-test:
+test: 
 	@flake8 . --exclude .venv
 
 compose:
