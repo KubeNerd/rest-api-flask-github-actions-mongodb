@@ -14,7 +14,12 @@ services:
       context: .
     environment:
       FLASK_ENV: ${FLASK_ENV}
+      DATABASE_USER: ${MONGO_INITDB_ROOT_USERNAME}
+      DATABASE_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     ports:
       - 5000:5000
     depends_on: 
       - mongodb
+
+    volumes:
+      - ./application:/app/application
