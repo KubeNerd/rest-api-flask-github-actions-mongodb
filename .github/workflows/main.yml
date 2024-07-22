@@ -18,3 +18,9 @@ jobs:
         echo "Building version ${{ github.run_id }}"
         docker build -t ${{ secrets.DOCKERHUB_REGISTRY }}/restapi-flask:${{ github.run_id }} .
           
+    - name: Push to registry
+      run: |
+        docker push ${{ secrets.DOCKERHUB_REGISTRY }}/restapi-flask:${{ github.run_id }}
+        docker tag ${{ secrets.DOCKERHUB_REGISTRY }}/restapi-flask:${{ github.run_id }} ${{ secrets.DOCKERHUB_REGISTRY }}/restapi-flask:latest
+        docker push ${{ secrets.DOCKERHUB_REGISTRY }}/restapi-flask:latest
+
