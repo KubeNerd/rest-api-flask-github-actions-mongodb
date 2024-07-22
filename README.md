@@ -1,3 +1,5 @@
+
+
 # Objetivo do Projeto
 
 A ideia principal é iniciar uma API RESTful usando Flask e, aos poucos, aprimorá-la com boas práticas de desenvolvimento e DevOps. Isso inclui:
@@ -42,3 +44,24 @@ application/
 └── wsgi.py
 
 ```
+##  Etapas do Projeto
+
+1. **Construir uma REST API com três rotas (endpoints)**:
+   - `/users` para retornar todos os usuários (GET)
+   - `/user/<cpf>` para retornar um usuário específico (GET)
+   - `/user` para registrar um novo usuário (POST)
+
+2. **Persistir dados em um Banco de Dados.**
+
+3. **Configurar a aplicação para rodar dentro de um Docker container (Dockerfile).**
+
+4. **Criar um `docker-compose` para compor a API juntamente com o banco de dados (ambiente de desenvolvimento).**
+
+5. **Escrever testes unitários para as rotas.**
+
+6. **Utilizar um `Makefile` para automatizar os passos mais comuns.**
+
+7. **Fazer o deploy da aplicação em uma plataforma de PaaS (Heroku).**
+
+8. **Criar uma pipeline de CI/CD utilizando alguma ferramenta “as a service” (GitHub Actions, Azure DevOps, etc.).**
+
