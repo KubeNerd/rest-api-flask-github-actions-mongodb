@@ -6,11 +6,36 @@ from .model import UserModel
 
 
 user_parser = reqparse.RequestParser()
-user_parser.add_argument('cpf', type=str, required=True, help="CPF is required")
-user_parser.add_argument('email', type=str, required=True, help="Email is required")
-user_parser.add_argument('first_name', type=str, required=True, help="First name is required")
-user_parser.add_argument('last_name', type=str, required=True, help="Last name is required")
-user_parser.add_argument('birth_date', type=str, required=True, help="Birth date is required")
+user_parser.add_argument(
+    'cpf',
+    type=str,
+    required=True,
+    help="CPF is required"
+)
+user_parser.add_argument(
+    'email',
+    type=str,
+    required=True,
+    help="Email is required"
+)
+user_parser.add_argument(
+    'first_name',
+    type=str,
+    required=True,
+    help="First name is required"
+)
+user_parser.add_argument(
+    'last_name',
+    type=str,
+    required=True,
+    help="Last name is required"
+)
+user_parser.add_argument(
+    'birth_date',
+    type=str,
+    required=True,
+    help="Birth date is required"
+)
 
 
 class User(Resource):
@@ -25,7 +50,7 @@ class User(Resource):
                 "birth_date": response.birth_date.strftime('%Y-%m-%d')
             }, 200
         return {"message": "User does not exist."}, 404
-    
+
     def post(self):
         data = user_parser.parse_args()
         birth_date = datetime.strptime(data['birth_date'], '%Y-%m-%d')
