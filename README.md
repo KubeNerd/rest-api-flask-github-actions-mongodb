@@ -15,6 +15,10 @@
 
 6. **Utilizar um `Makefile` para automatizar os passos mais comuns.**
 
+7. **Fazer o deploy da aplicação em uma plataforma de PaaS (Heroku).**
+
+8. **Criar uma pipeline de CI/CD utilizando alguma ferramenta “as a service” (GitHub Actions, Azure DevOps, etc.).**
+
 A ideia principal é iniciar uma API RESTful usando Flask e, aos poucos, aprimorá-la com boas práticas de desenvolvimento e DevOps. Isso inclui:
 
 - Implementação do padrão de fábrica de aplicação (Application Factory) com Flask-RESTful.
@@ -57,8 +61,4 @@ application/
 └── wsgi.py
 
 ```
-
-7. **Fazer o deploy da aplicação em uma plataforma de PaaS (Heroku).**
-
-8. **Criar uma pipeline de CI/CD utilizando alguma ferramenta “as a service” (GitHub Actions, Azure DevOps, etc.).**
 
