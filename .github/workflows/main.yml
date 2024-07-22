@@ -1,40 +1,47 @@
 name: CI
+
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.9' 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-        pip install flake8 pytest mongomock
-    - name: Run tests
-      run: make test || true
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install flake8 pytest mongomock
+      - name: Run tests
+        run: make test || true
+
   build:
     needs: [tests]
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Login
-      run: |
-          docker login --username  ${{ secrets.DOCKERHUB_USER }} --password ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build
-      run: |
-        echo "Building version ${{ github.run_id }}"
-        docker build -t ${{ secrets.DOCKERHUB_REGISTRY }}/${{ github.event.repository.name }}:${{ github.run_id }} .
-          
-    - name: Push to registry
-      run: |
-        docker push ${{ secrets.DOCKERHUB_REGISTRY }}/${{ github.event.repository.name }}:${{ github.run_id }}
-        docker tag ${{ secrets.DOCKERHUB_REGISTRY }}/${{ github.event.repository.name }}:${{ github.run_id }} ${{ secrets.DOCKERHUB_REGISTRY }}/restapi-flask:latest
-        docker push ${{ secrets.DOCKERHUB_REGISTRY }}/${{ github.event.repository.name }}:latest
-
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Login
+        run: |
+          docker login --username ${{ secrets.DOCKERHUB_USER }} --password ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build
+        run: |
+          echo "Building version ${{ github.run_id }}"
+          docker build -t ${{ secrets.DOCKERHUB_REGISTRY }}/${{ github.event.repository.name }}:${{ github.run_id }} .
+      - name: Push to registry
+        run: |
+          docker push ${{ secrets.DOCKERHUB_REGISTRY }}/${{ github.event.repository.name }}:${{ github.run_id }}
+          docker tag ${{ secrets.DOCKERHUB_REGISTRY }}/${{ github.event.repository.name }}:${{ github.run_id }} ${{ secrets.DOCKERHUB_REGISTRY }}/restapi-flask:latest
+          docker push ${{ secrets.DOCKERHUB_REGISTRY }}/${{ github.event.repository.name }}:latest
+      - name: Deploy in Heroku
+        uses: akhileshns/heroku-deploy@v3.13.15
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_TOKEN }}
+          heroku_app_name: "${{ github.event.repository.name }}"
+          # heroku_email: "YOUR EMAIL"
+          stack: "container"
