@@ -40,7 +40,7 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_REGISTRY }}/${{ github.event.repository.name }}:latest
   
   deploy_heroku:
-    needs: [tests]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Heroku
