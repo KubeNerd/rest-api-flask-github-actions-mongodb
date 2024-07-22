@@ -1,5 +1,6 @@
 from .db import db
 
+
 class UserModel(db.Document):
     cpf = db.StringField(max_length=200, unique=True)
     email = db.StringField(max_length=200, required=True)
