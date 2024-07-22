@@ -1,5 +1,5 @@
 import pytest
-from application import create_app
+from ..application import create_app
 
 
 class TestApplication():
